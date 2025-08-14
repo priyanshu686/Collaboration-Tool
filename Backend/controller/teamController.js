@@ -33,3 +33,24 @@ export const getMyTeams=async(req,res)=>{
         res.status(500).json({ message: error.message });
     }
 }
+
+export const joinTeam=async(req,res)=>{
+    try {
+        const teamId=req.params.id;
+        const userId=req.user._id;
+
+        const team=await Team.findById(teamId);
+        if(!team){
+            return res.status(404).json({message:"Team not found"});
+        }
+        if(team.members.includes(userId)){
+            return res.status(400).json({message:"You are already a member of this team"});
+        }
+
+        team.members.push(userId);
+        await team.save();
+        res.status(200).json({message:"Joined the team successfully",team});
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
