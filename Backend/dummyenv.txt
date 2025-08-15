@@ -1,6 +1,0 @@
-Replace "" With your data and Copy Paste it on .env file
-If u add anything in .env file then add its dummy in it
-
-Mongo_URL =""
-PORT =""
-
