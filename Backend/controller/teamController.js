@@ -57,6 +57,50 @@ export const addMember=async(req,res)=>{
         res.status(500).json({ message: "Server error", error: error.message });
     }
 }
+
+export const removeMember=async(req,res)=>{
+    try {
+         const {id:teamId, memberId}=req.params;
+    const team=await Team.findById(teamId);
+    if(!team){
+        return res.status(404).json({message:"Team not found"});
+    }
+    if(team.creator.toString() ==memberId){
+        return res.status(404).json({message:"Cannot remove the team creator"})
+    }
+    if(!team.members.includes(memberId)){
+        return res.status(404).json({message:"Member not found in the team"})
+    }
+
+    team.members=team.members.filter(id=> id.toString() !== memberId);
+    await team.save();
+
+    res.status(200).json({ message: "Member removed successfully", team });
+    } catch (error) {
+         res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
+export const updateTeam=async(req,res)=>{
+    try{
+        const{id:teamId}=req.params;
+        const{name,description}=req.body;
+
+        const team=await findById(teamId);
+        if(!team){
+            return res.status(404).json({message:"Team not found"});
+        }
+        if(name) team.name=name;
+        if(description) team.description=description;
+
+        await team.save();
+
+        res.status(200).json({message:"Team updated", team});
+    }catch(error){
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
 // export const joinTeam=async(req,res)=>{
 //     try {
 //         const teamId=req.params.id;
