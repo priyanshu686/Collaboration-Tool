@@ -14,7 +14,7 @@ export const createTeam=async(req,res)=>{
             members:[req.user._id],
             projects:[]
         });
-
+        await team.save();
         res.status(201).json({ message: "Team created successfully", team });
 
     } catch (error) {
