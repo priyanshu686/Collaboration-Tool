@@ -29,4 +29,24 @@ export const createProject = async(req,res)=>{
     }
   
 }
+export const listProjects= async (req,res)=>{
+    try{
+        const{teamId}=req.params;
+        const projects= await Project.find({ team:teamId}).populate('tasks');
+    }catch (err){
+        res.status(500).json({error: err.message});
+    }
+};
+
+//Delete a project by ID (also delete related tasks)
+export const deleteProject= async (req,res)=>{
+    try{
+        const {projectId}= req.params;
+        await Task.deleteMany ({ project:projectId});
+        await Project.findByIdAndDelete(projectId);
+        res.json({message: "Project and its tasks deleted."});
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+};
 
