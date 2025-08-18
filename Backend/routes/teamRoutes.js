@@ -8,10 +8,9 @@ router.post('/',isAuthenticated,authorizeRoles('Admin','Project Manager'),create
 router.get('/',isAuthenticated,getMyTeams)
 
 //need to test
+
 router.post('/:id/add-member',isAuthenticated,authorizeRoles('Admin','Project Manager'), addMember);
 router.delete('/:id/remove-member/:memberId', isAuthenticated, authorizeRoles('Admin', 'Project Manager'), removeMember);
 router.put('/:id', isAuthenticated, authorizeRoles('Admin', 'Project Manager'), updateTeam);
-
-
 
 export default router;
