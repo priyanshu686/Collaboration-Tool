@@ -101,6 +101,8 @@ export const updateTeam=async(req,res)=>{
     }
 }
 
+
+
 // export const joinTeam=async(req,res)=>{
 //     try {
 //         const teamId=req.params.id;

@@ -8,7 +8,7 @@ import './config/passport.js'
 import authRoutes from './routes/authRoutes.js'
 import teamRoutes from './routes/teamRoutes.js'
 import dbConnect from './config/db.js';
-
+import profileRoutes from './routes/profileRoutes.js';
 
 dotenv.config();
 
@@ -32,6 +32,7 @@ app.use(passport.session())
 
 app.use('/api/auth',authRoutes);
 app.use('/api/teams',teamRoutes);
+app.use("/api/profile", profileRoutes);
 
 const PORT = process.env.PORT;
 
