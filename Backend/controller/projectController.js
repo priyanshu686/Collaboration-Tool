@@ -1,7 +1,7 @@
 import project from '../model/projectModel.js'
 
 export const createProject = async(req,res)=>{
-    const{name,description,} = req.body;
+    const{name,description,team} = req.body;
     const user = req.user;
     if(!name || !description){
         return res.status(404).json({
@@ -12,7 +12,8 @@ export const createProject = async(req,res)=>{
      const newproject = await project.create({
         name,
         description,
-        createrId:user._Id
+        createrId:user._Id,
+        team
     })
     await newproject.save();
     return res.status(200).json({
