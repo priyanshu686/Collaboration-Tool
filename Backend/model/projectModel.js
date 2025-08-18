@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Team from "../model/teamModel.js"
+// import Team from "../model/teamModel.js"
 // import Task from "../model/taskModel.js"
-import user from "../model/userModel.js"
+// import user from "../model/userModel.js"
 
 
 const projectSchema = new mongoose.Schema({
@@ -14,11 +14,11 @@ const projectSchema = new mongoose.Schema({
   },
   createrId:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:user
+    ref:"User"
   },
   team: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Team
+    ref: "Team"
   },
   tasks: [
     {
@@ -28,4 +28,5 @@ const projectSchema = new mongoose.Schema({
   ]
 }, { timestamps: true });
 
-export default mongoose.model("Project", projectSchema);
+
+export default mongoose.model('Project', projectSchema);

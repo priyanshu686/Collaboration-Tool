@@ -8,6 +8,7 @@ import './config/passport.js'
 import authRoutes from './routes/authRoutes.js'
 import teamRoutes from './routes/teamRoutes.js'
 import projectRoutes from './routes/projectRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
 import dbConnect from './config/db.js';
 
 
@@ -35,6 +36,7 @@ app.use(passport.session())
 app.use('/api/auth',authRoutes);
 app.use('/api/teams',teamRoutes);
 app.use('/api/project',projectRoutes);
+app.use('/api/task',taskRoutes);
 
 const PORT = process.env.PORT;
 
