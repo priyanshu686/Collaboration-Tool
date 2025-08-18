@@ -7,6 +7,8 @@ import passport from 'passport';
 import './config/passport.js'
 import authRoutes from './routes/authRoutes.js'
 import teamRoutes from './routes/teamRoutes.js'
+import projectRoutes from './routes/projectRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
 import dbConnect from './config/db.js';
 import profileRoutes from './routes/profileRoutes.js';
 
@@ -14,8 +16,8 @@ dotenv.config();
 
 const app = express();
 
-app.use(express.json({ limit: "100mb" })); // For JSON bodies
-app.use(express.urlencoded({ extended: true, limit: "100mb" })); // For form submissions
+app.use(express.json({ limit: "100mb" })); 
+app.use(express.urlencoded({ extended: true, limit: "100mb" })); 
 app.use(session({
     secret: process.env.SESSION_SECRET || "secret",
     resave: false,
@@ -26,15 +28,17 @@ app.use(session({
 })
 )
 
+
 app.use(passport.initialize());
 app.use(passport.session())
 
 
 app.use('/api/auth',authRoutes);
 app.use('/api/teams',teamRoutes);
-app.use("/api/profile", profileRoutes);
 
 const PORT = process.env.PORT;
+
+
 
 dbConnect().then(()=>{
     app.listen(PORT,()=>{

@@ -7,14 +7,13 @@ export const createTeam=async(req,res)=>{
         if(!name) return res.status(400).json({
             message:"Team name is required"
         })
-
         const team=await Team.create({
             name,
             creator:req.user._id,
             members:[req.user._id],
             projects:[]
         });
-
+        await team.save();
         res.status(201).json({ message: "Team created successfully", team });
 
     } catch (error) {
